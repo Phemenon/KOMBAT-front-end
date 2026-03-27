@@ -97,7 +97,7 @@ export default function SelectMinionPage() {
 
     const [editorOpen, setEditorOpen] = useState(false);
     const [editingType, setEditingType] = useState("");
-    const [defaultStrategy, setDefaultStrategy] = useState("");
+    const [, setDefaultStrategy] = useState("");
     const [draftStrategy, setDraftStrategy] = useState("");
     const [isValidStrategy, setIsValidStrategy] = useState(false);
     const [validationMessage, setValidationMessage] = useState("");
