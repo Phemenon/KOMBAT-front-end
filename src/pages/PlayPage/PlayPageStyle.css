@@ -1,0 +1,371 @@
+/* ========================== HOST / PLAY PAGE ========================== */
+
+/* ปุ่มล่างกลาง */
+.bottomBar {
+    position: absolute;
+    bottom: 28px;
+    left: 0;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+/* title กลางบน */
+.subTitle h1 {
+    position: absolute;
+    top: 54px;
+    left: 0;
+    width: 100%;
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Press Start 2P', cursive;
+    font-size: 64px;
+    line-height: 1.1;
+    letter-spacing: 3px;
+    color: #fff5f6;
+    text-align: center;
+    text-shadow:
+            0 6px 0 rgba(120, 35, 45, 0.55),
+            0 12px 24px rgba(0, 0, 0, 0.34),
+            0 0 20px rgba(255, 255, 255, 0.08);
+    z-index: 2;
+}
+
+/* background ของ play page */
+.playBg {
+    background:
+            radial-gradient(circle at top, rgba(255, 255, 255, 0.06), transparent 28%),
+            linear-gradient(200deg, #ff6775 0%, #c53b47 100%);
+}
+
+/* ========================== MODE SELECTION POPUP ========================== */
+
+/* overlay */
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    background:
+            radial-gradient(circle at center, rgba(255, 90, 120, 0.08), transparent 35%),
+            rgba(12, 0, 6, 0.72);
+    backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* กล่อง popup */
+.modalBox {
+    position: relative;
+    width: min(600px, 92vw);
+    padding: 34px 34px 30px;
+    text-align: center;
+    border-radius: 24px;
+    background:
+            linear-gradient(180deg, rgba(70, 10, 20, 0.92) 0%, rgba(35, 3, 8, 0.96) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow:
+            0 24px 60px rgba(0, 0, 0, 0.4),
+            0 0 24px rgba(255, 255, 255, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+}
+
+.modalBox::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.07), transparent 24%);
+    pointer-events: none;
+}
+
+/* ========================== MODE MODAL HEADER ========================== */
+
+.modelHeadCon {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    margin-bottom: 24px;
+}
+
+.modelTitle {
+    margin: 0;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 26px;
+    line-height: 1.3;
+    letter-spacing: 2px;
+    color: #fff6f7;
+    text-shadow:
+            0 4px 12px rgba(0, 0, 0, 0.25),
+            0 0 12px rgba(255, 255, 255, 0.08);
+}
+
+.modelCancelBtn {
+    position: absolute;
+    left: 0;
+    min-width: 84px;
+    padding: 11px 14px;
+
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 12px;
+    color: #fff5f6;
+
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+
+    cursor: pointer;
+    box-shadow:
+            0 8px 18px rgba(0, 0, 0, 0.16),
+            inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition:
+            transform 0.2s ease,
+            background 0.2s ease,
+            color 0.2s ease,
+            border-color 0.2s ease,
+            box-shadow 0.2s ease;
+}
+
+.modelCancelBtn:hover {
+    transform: translateY(-2px);
+    background: rgba(210, 10, 46, 0.95);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.16);
+    box-shadow:
+            0 12px 22px rgba(0, 0, 0, 0.18),
+            0 0 16px rgba(210, 10, 46, 0.22);
+}
+
+.modelCancelBtn:active {
+    transform: translateY(0) scale(0.99);
+}
+
+/* ========================== MODE BUTTONS ========================== */
+
+.modeBTN {
+    position: relative;
+    z-index: 1;
+    width: 170px;
+    padding: 14px 0;
+
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 14px;
+    color: #fff6f7;
+
+    font-family: 'Orbitron', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+    box-shadow:
+            0 10px 22px rgba(0, 0, 0, 0.18),
+            inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transition:
+            transform 0.22s ease,
+            background 0.22s ease,
+            color 0.22s ease,
+            box-shadow 0.22s ease,
+            border-color 0.22s ease;
+}
+
+.modeBTN:hover {
+    transform: translateY(-3px) scale(1.015);
+    background: rgba(255, 255, 255, 0.94);
+    color: #ff4564;
+    border-color: rgba(255, 255, 255, 1);
+    box-shadow:
+            0 14px 26px rgba(0, 0, 0, 0.2),
+            0 0 18px rgba(255, 255, 255, 0.14);
+}
+
+.modeBTN:active {
+    transform: translateY(0) scale(0.99);
+}
+
+/* ========================== JOIN MODAL ========================== */
+
+.joinContext {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    margin-top: 10px;
+}
+
+/* input */
+.hostInput {
+    width: min(420px, 100%);
+    height: 56px;
+    padding: 0 18px;
+    box-sizing: border-box;
+
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.6px;
+    text-align: center;
+    outline: none;
+    caret-color: white;
+    box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease,
+            background 0.2s ease;
+}
+
+.hostInput::placeholder {
+    color: rgba(255, 255, 255, 0.38);
+}
+
+.hostInput:focus {
+    border-color: rgba(255, 255, 255, 0.36);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow:
+            0 0 0 3px rgba(255, 255, 255, 0.06),
+            0 0 16px rgba(255, 255, 255, 0.08);
+}
+
+/* action buttons area เผื่อมี div ครอบ */
+.joinActionRow {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* cancel / confirm */
+.joinCancleBtn,
+.joinConfirmBtn {
+    min-width: 110px;
+    height: 44px;
+    padding: 0 18px;
+    box-sizing: border-box;
+
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 12px;
+    color: #fff5f6;
+
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+
+    cursor: pointer;
+    box-shadow:
+            0 8px 18px rgba(0, 0, 0, 0.16),
+            inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition:
+            transform 0.2s ease,
+            background 0.2s ease,
+            color 0.2s ease,
+            border-color 0.2s ease,
+            box-shadow 0.2s ease;
+}
+
+.joinCancleBtn:hover {
+    transform: translateY(-2px);
+    background: rgba(210, 10, 46, 0.95);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.16);
+    box-shadow:
+            0 12px 22px rgba(0, 0, 0, 0.18),
+            0 0 16px rgba(210, 10, 46, 0.22);
+}
+
+.joinConfirmBtn:hover {
+    transform: translateY(-2px);
+    background: rgba(146, 210, 10, 0.95);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.16);
+    box-shadow:
+            0 12px 22px rgba(0, 0, 0, 0.18),
+            0 0 16px rgba(146, 210, 10, 0.2);
+}
+
+.joinCancleBtn:active,
+.joinConfirmBtn:active {
+    transform: translateY(0) scale(0.99);
+}
+
+/* ========================== RESPONSIVE ========================== */
+
+@media (max-width: 900px) {
+    .subTitle h1 {
+        font-size: 48px;
+        top: 42px;
+    }
+
+    .modalBox {
+        padding: 28px 24px 24px;
+    }
+
+    .modelTitle {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 560px) {
+    .subTitle h1 {
+        font-size: 34px;
+        top: 30px;
+        line-height: 1.25;
+    }
+
+    .bottomBar {
+        bottom: 20px;
+    }
+
+    .modelHeadCon {
+        min-height: auto;
+        gap: 14px;
+        flex-direction: column;
+    }
+
+    .modelCancelBtn {
+        position: static;
+        width: 100%;
+    }
+
+    .modalBox {
+        border-radius: 18px;
+    }
+
+    .modeBTN {
+        width: 100%;
+    }
+
+    .joinActionRow {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .joinCancleBtn,
+    .joinConfirmBtn {
+        width: 100%;
+    }
+}

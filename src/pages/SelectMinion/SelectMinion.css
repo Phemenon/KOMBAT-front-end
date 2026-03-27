@@ -1,0 +1,707 @@
+/* ========================== Select Minion ===================== */
+
+.minions-container {
+    position: relative;
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+    padding: 18px 0 24px;
+    box-sizing: border-box;
+    caret-color: transparent;
+    background:
+            radial-gradient(circle at top, rgba(255, 255, 255, 0.06), transparent 30%),
+            linear-gradient(200deg, #ff6775 0%, #c53b47 100%);
+}
+
+/* ---------------- READY SIDE OVERLAY ---------------- */
+
+.player-side {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.28s ease;
+    z-index: 0;
+}
+
+.left-side {
+    left: 0;
+    background:
+            linear-gradient(to right, rgba(147, 255, 53, 0.22), rgba(147, 255, 53, 0.05) 55%, transparent 100%);
+}
+
+.right-side {
+    right: 0;
+    background:
+            linear-gradient(to left, rgba(0, 238, 255, 0.22), rgba(0, 238, 255, 0.05) 55%, transparent 100%);
+}
+
+.player-side.active {
+    opacity: 1;
+}
+
+/* ---------------- TITLE ---------------- */
+
+.minions-title {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-top: 18px;
+    margin-bottom: 8px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 64px;
+    letter-spacing: 4px;
+    color: #fff4f4;
+    text-shadow:
+            0 6px 0 rgba(120, 35, 45, 0.55),
+            0 10px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* ---------------- STATUS TEXT ---------------- */
+
+.selection-hint {
+    position: relative;
+    z-index: 2;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    color: #ffd8df;
+    letter-spacing: 1px;
+    margin: 0;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.selection-hint.error {
+    color: #fff0f0;
+    text-shadow: 0 0 8px rgba(255, 80, 80, 0.35);
+}
+
+/* ---------------- GRID AREA ---------------- */
+
+.minions-grid {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 10px;
+    width: 94%;
+    max-width: 1320px;
+    flex: 1;
+    margin-top: 12px;
+    margin-bottom: 18px;
+}
+
+/* ---------------- MINION CARD ---------------- */
+
+.minion-card {
+    position: relative;
+    overflow: hidden;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 22px 12px 18px;
+    border-radius: 24px;
+
+    font-family: 'Press Start 2P', cursive;
+    color: white;
+    user-select: none;
+    cursor: pointer;
+
+    background:
+            linear-gradient(180deg, rgba(92, 20, 30, 0.88) 0%, rgba(61, 3, 3, 0.94) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow:
+            0 12px 28px rgba(0, 0, 0, 0.28),
+            inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+    filter: grayscale(1) saturate(0.75);
+    opacity: 0.68;
+    transform: translateY(0) scale(1);
+
+    transition:
+            transform 0.28s ease,
+            box-shadow 0.28s ease,
+            background 0.28s ease,
+            opacity 0.28s ease,
+            filter 0.28s ease,
+            border-color 0.28s ease;
+}
+
+.minion-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 28%);
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.minion-card:hover:not(.locked):not(.active) {
+    transform: translateY(-4px);
+    opacity: 0.82;
+    box-shadow:
+            0 16px 34px rgba(0, 0, 0, 0.32),
+            inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.minion-card.active {
+    opacity: 1;
+    transform: translateY(-6px) scale(1.015);
+    filter: grayscale(0) saturate(1.05);
+    background:
+            linear-gradient(180deg, rgba(196, 8, 45, 0.95) 0%, rgba(151, 7, 35, 0.95) 100%);
+    border: 2px solid rgba(255, 255, 255, 0.85);
+    box-shadow:
+            0 0 0 1px rgba(255, 255, 255, 0.08),
+            0 18px 36px rgba(88, 0, 19, 0.35),
+            0 0 24px rgba(255, 255, 255, 0.14);
+}
+
+.minion-card.locked {
+    cursor: default;
+}
+
+.minion-card.locked:not(.active) {
+    opacity: 0.58;
+}
+
+/* ---------------- IMAGE ---------------- */
+
+.minion-image-container {
+    width: 100%;
+    height: 148px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 14px;
+    padding: 8px;
+}
+
+.minion-sprite {
+    width: 100%;
+    height: 145%;
+    object-fit: contain;
+    pointer-events: none;
+    transition: transform 0.28s ease, filter 0.28s ease;
+}
+
+.minion-card:hover:not(.locked) .minion-sprite,
+.minion-card.active .minion-sprite {
+    transform: translateY(-3px) scale(1.03);
+}
+
+/* ---------------- TEXT ---------------- */
+
+.minion-name {
+    margin: 4px 0 14px;
+    font-size: 15px;
+    line-height: 1.3;
+    text-align: center;
+    color: #fff3f3;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.minion-desc {
+    font-family: 'Orbitron', sans-serif;
+    color: rgba(255, 240, 240, 0.92);
+    font-size: 15px;
+    line-height: 1.5;
+    text-align: center;
+    flex-grow: 1;
+    width: 100%;
+    max-width: 180px;
+    margin: 0;
+}
+
+/* ---------------- EDIT BUTTON ---------------- */
+
+.edit-btn {
+    margin-top: 14px;
+    padding: 6px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 6px;
+    background: rgba(255, 230, 235, 0.86);
+    color: #5f1e27;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 8px;
+    cursor: pointer;
+    transition:
+            transform 0.2s ease,
+            background 0.2s ease,
+            box-shadow 0.2s ease;
+}
+
+.edit-btn:hover {
+    transform: translateY(-1px);
+    background: #fff3f5;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.16);
+}
+
+/* ---------------- FOOTER ---------------- */
+
+.footer-section {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 6px;
+    width: 100%;
+}
+
+/* ---------------- READY BUTTON ---------------- */
+
+.done-btn-fixed {
+    min-width: 180px;
+    padding: 12px 34px;
+    border: 2px solid rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.03);
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    cursor: pointer;
+
+    box-shadow:
+            0 8px 18px rgba(0, 0, 0, 0.16),
+            inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+    transition:
+            transform 0.24s ease,
+            background 0.24s ease,
+            color 0.24s ease,
+            box-shadow 0.24s ease,
+            border-color 0.24s ease;
+}
+
+.done-btn-fixed:hover {
+    transform: translateY(-2px) scale(1.02);
+    background: rgba(255, 255, 255, 0.92);
+    color: #ff3e5e;
+    box-shadow:
+            0 12px 22px rgba(0, 0, 0, 0.18),
+            0 0 18px rgba(255, 255, 255, 0.15);
+}
+
+.done-btn-fixed:active {
+    transform: translateY(0) scale(0.99);
+}
+
+.done-btn-fixed:disabled {
+    border-color: rgba(255, 255, 255, 0.22);
+    color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.02);
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+    opacity: 1;
+}
+
+.done-btn-fixed:disabled:hover {
+    background: rgba(255, 255, 255, 0.02);
+    color: rgba(255, 255, 255, 0.3);
+    transform: none;
+    box-shadow: none;
+}
+
+/* ---------------- RESPONSIVE FEEL ---------------- */
+
+@media (max-width: 1200px) {
+    .minions-title {
+        font-size: 52px;
+    }
+
+    .minion-name {
+        font-size: 13px;
+    }
+
+    .done-btn-fixed {
+        font-size: 18px;
+    }
+}
+
+/* ========================== STRATEGY MODAL ========================== */
+
+.strategyModalOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    box-sizing: border-box;
+
+    background:
+            radial-gradient(circle at center, rgba(255, 90, 120, 0.08), transparent 35%),
+            rgba(12, 0, 6, 0.72);
+    backdrop-filter: blur(6px);
+}
+
+.strategyModalBox {
+    position: relative;
+    width: min(760px, 92vw);
+    min-height: 560px;
+    padding: 28px 32px 26px;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    border-radius: 24px;
+    background:
+            linear-gradient(180deg, rgba(245, 245, 245, 0.96) 0%, rgba(232, 232, 232, 0.98) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow:
+            0 28px 60px rgba(0, 0, 0, 0.32),
+            0 0 20px rgba(255, 255, 255, 0.08);
+}
+
+.strategyModalBox::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.2), transparent 22%);
+    pointer-events: none;
+}
+
+/* tab ด้านบนซ้าย */
+.defaultTabBtn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 94px;
+    height: 40px;
+    border: none;
+    border-right: 2px solid rgba(60, 0, 10, 0.4);
+    border-bottom: 2px solid rgba(60, 0, 10, 0.4);
+
+    background:
+            linear-gradient(180deg, rgba(30, 30, 30, 0.98) 0%, rgba(18, 18, 18, 1) 100%);
+    color: #f5f5f5;
+
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    text-transform: lowercase;
+
+    cursor: pointer;
+    transition:
+            transform 0.2s ease,
+            color 0.2s ease,
+            box-shadow 0.2s ease,
+            background 0.2s ease;
+}
+
+.defaultTabBtn:hover:not(:disabled) {
+    color: #ffffff;
+    box-shadow:
+            0 8px 18px rgba(0, 0, 0, 0.18),
+            0 0 12px rgba(255, 255, 255, 0.08);
+}
+
+.defaultTabBtn:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.defaultTabBtn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+/* title กลาง */
+.strategyModalTitle {
+    margin: 22px 0 28px;
+    text-align: center;
+
+    font-family: 'Press Start 2P', cursive;
+    font-size: 54px;
+    line-height: 1.1;
+    color: #111111;
+    text-shadow:
+            0 2px 0 rgba(255, 255, 255, 0.22);
+}
+
+/* textarea */
+.strategyEditorTextarea {
+    width: 100%;
+    min-height: 290px;
+    resize: vertical;
+    box-sizing: border-box;
+    padding: 18px 20px;
+    margin-bottom: 22px;
+
+    border: 2px solid rgba(55, 0, 8, 0.6);
+    border-radius: 14px;
+    outline: none;
+
+    background:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(245, 245, 245, 0.98) 100%);
+    color: #111111;
+
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    letter-spacing: 0.2px;
+    white-space: pre-wrap;
+
+    box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.22),
+            0 8px 18px rgba(0, 0, 0, 0.08);
+
+    transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease,
+            background 0.2s ease;
+}
+
+.strategyEditorTextarea:focus {
+    border-color: rgba(120, 15, 32, 0.8);
+    box-shadow:
+            0 0 0 4px rgba(120, 15, 32, 0.08),
+            0 10px 24px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.98);
+}
+
+/* footer ปุ่ม */
+.strategyModalFooter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 10px;
+}
+
+/* confirm */
+.confirmStrategyBtn,
+.validateStrategyBtn,
+.closeStrategyModalBtn {
+    min-width: 150px;
+    padding: 12px 22px;
+    border-radius: 14px;
+    border: 2px solid rgba(60, 0, 10, 0.7);
+
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+
+    cursor: pointer;
+    transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease,
+            background 0.2s ease,
+            color 0.2s ease,
+            border-color 0.2s ease;
+}
+
+/* Confirm */
+.confirmStrategyBtn {
+    background: rgba(255, 255, 255, 0.96);
+    color: #4a0a12;
+}
+
+.confirmStrategyBtn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 1);
+    color: #8bff57;
+    border-color: rgba(90, 160, 20, 0.8);
+    box-shadow:
+            0 12px 24px rgba(0, 0, 0, 0.12),
+            0 0 16px rgba(141, 255, 90, 0.18);
+}
+
+.confirmStrategyBtn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* Valid */
+.validateStrategyBtn {
+    background: rgba(255, 255, 255, 0.96);
+    color: #4a0a12;
+}
+
+.validateStrategyBtn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 1);
+    color: #00c8ff;
+    border-color: rgba(0, 150, 200, 0.82);
+    box-shadow:
+            0 12px 24px rgba(0, 0, 0, 0.12),
+            0 0 16px rgba(0, 200, 255, 0.18);
+}
+
+/* close ปุ่มล่างเดี่ยว */
+.closeStrategyModalBtn {
+    display: block;
+    margin: 18px auto 0;
+    min-width: 120px;
+    background: rgba(255, 255, 255, 0.96);
+    color: #4a0a12;
+}
+
+.closeStrategyModalBtn:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 1);
+    color: #ff4564;
+    border-color: rgba(255, 70, 100, 0.75);
+    box-shadow:
+            0 12px 24px rgba(0, 0, 0, 0.12),
+            0 0 16px rgba(255, 70, 100, 0.16);
+}
+
+/* validation text */
+.strategyValidationText {
+    margin: 18px 0 0;
+    text-align: center;
+
+    font-family: 'Orbitron', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.strategyValidationText.ok {
+    color: #4da600;
+    text-shadow: 0 0 10px rgba(77, 166, 0, 0.12);
+}
+
+.strategyValidationText.error {
+    color: #d62839;
+    text-shadow: 0 0 10px rgba(214, 40, 57, 0.12);
+}
+
+/* responsive */
+@media (max-width: 900px) {
+    .strategyModalBox {
+        width: min(92vw, 720px);
+        min-height: 520px;
+        padding: 24px 22px 22px;
+    }
+
+    .strategyModalTitle {
+        font-size: 40px;
+        margin-top: 32px;
+    }
+
+    .strategyEditorTextarea {
+        min-height: 260px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 600px) {
+    .strategyModalOverlay {
+        padding: 14px;
+    }
+
+    .strategyModalBox {
+        width: 100%;
+        min-height: auto;
+        border-radius: 18px;
+        padding: 20px 16px 18px;
+    }
+
+    .defaultTabBtn {
+        min-width: 82px;
+        height: 36px;
+        font-size: 12px;
+    }
+
+    .strategyModalTitle {
+        font-size: 28px;
+        margin-top: 38px;
+        margin-bottom: 18px;
+    }
+
+    .strategyEditorTextarea {
+        min-height: 220px;
+        padding: 14px 14px;
+        font-size: 14px;
+    }
+
+    .strategyModalFooter {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .confirmStrategyBtn,
+    .validateStrategyBtn,
+    .closeStrategyModalBtn {
+        width: 100%;
+        min-width: unset;
+        font-size: 16px;
+    }
+}
+
+.minion-meta-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 8px 0 10px;
+}
+
+.minion-stat-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.minion-stat-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #ffcf66;
+    text-transform: uppercase;
+}
+
+.minion-defense-input {
+    width: 72px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(0, 0, 0, 0.25);
+    color: #ffffff;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    outline: none;
+}
+
+.mini-action-btn {
+    padding: 6px 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.mini-action-btn.secondary {
+    background: rgba(255, 207, 102, 0.12);
+    color: #ffcf66;
+}

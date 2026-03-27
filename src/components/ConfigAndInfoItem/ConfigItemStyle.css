@@ -1,0 +1,48 @@
+.configItem {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.configIcon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.configLabel {
+    flex: 1;
+    font-size: 20px;
+    font-family: 'Orbitron', sans-serif;
+    color: white;
+}
+
+.configInput {
+    width: 120px;
+    height: 35px;
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    font-size: 18px;
+}
+
+.configInput::-webkit-outer-spin-button,
+.configInput::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.configValue {
+    min-width: 120px;
+    text-align: center;
+    padding: 6px 10px;
+    border: 1px solid white;
+    color: white;
+}
+
+.configItemDisabled {
+    opacity: 0.5;
+}

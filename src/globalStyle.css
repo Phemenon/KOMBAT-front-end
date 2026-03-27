@@ -1,0 +1,62 @@
+{/* all pages styles */}
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.backgroundLayout  {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.subTitle {
+    text-align: center;
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.subTitle h1 {
+    font-size: 64px;
+    letter-spacing: 4px;
+    margin: 0;
+}
+
+.backBTN {
+    z-index: 10;
+    position: absolute;
+    top: 30px;
+    left: 40px;
+
+    width: 150px;                  /* ความกว้างปุ่ม */
+    padding: 12px 0;               /* ระยะขอบด้านใน */
+
+    background-color: white; /* พื้นหลังโปร่งใสตอนปกติ */
+    border: 3px solid white;       /* เส้นขอบสีขาว */
+    color: #ff4b5c;                  /* ตัวอักษรสีขาว */
+
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+
+    cursor: pointer;
+    transition: all 0.15s ease;    /* ทำให้ hover ลื่น */
+}
+
+/* ===== ตอนเอาเมาส์วางบนปุ่ม ===== */
+.backBTN:hover {
+    background-color: #D20A2E;       /* พื้นหลังกลายเป็นสีขาว */
+    color: white;                /* ตัวอักษรสีแดงแบบในภาพ */
+    border: 3px solid #D20A2E;
+
+    /* ทำเงาด้านล่างให้ดูเหมือนปุ่มลอย */
+    box-shadow: 4px 4px 0 #000;
+    transform: translateY(-4px); /* เลื่อนขึ้น */
+}
+

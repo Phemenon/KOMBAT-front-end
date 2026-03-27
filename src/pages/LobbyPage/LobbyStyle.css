@@ -1,0 +1,585 @@
+/* ========================== LOBBY PAGE ========================== */
+
+.LobbyBG {
+    min-height: 100vh;
+    width: 100%;
+    background:
+            radial-gradient(circle at top, rgba(255, 255, 255, 0.06), transparent 28%),
+            linear-gradient(200deg, #ff6674 0%, #c53b47 100%);
+    overflow: hidden;
+}
+
+.LobbyBackgroundLayout {
+    position: relative;
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.LobbyBackgroundLayout::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+            radial-gradient(circle at center, rgba(255, 255, 255, 0.04), transparent 45%),
+            linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 22%);
+    pointer-events: none;
+}
+
+.page {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    padding-top: 72px;
+    padding-bottom: 36px;
+    min-height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+    gap: 26px;
+}
+
+/* ========================== HEADER ========================== */
+
+.LobbyHeader {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+.line {
+    flex: 1;
+    max-width: 320px;
+    height: 2px;
+    border-radius: 999px;
+    background:
+            linear-gradient(to right, transparent, rgba(255, 255, 255, 0.9), transparent);
+    box-shadow: 0 0 14px rgba(255, 255, 255, 0.16);
+}
+
+.LobbyTitleSection {
+    text-align: center;
+}
+
+.LobbyTitle {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 64px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #fff5f6;
+    text-transform: uppercase;
+    text-shadow:
+            0 6px 0 rgba(120, 35, 45, 0.55),
+            0 12px 24px rgba(0, 0, 0, 0.34),
+            0 0 20px rgba(255, 255, 255, 0.08);
+}
+
+.LobbySubTitle {
+    margin-top: 8px;
+    font-size: 13px;
+    letter-spacing: 1.4px;
+    color: rgba(255, 240, 242, 0.92);
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+}
+
+/* ========================== ROOM INFO ========================== */
+
+.roomInfo {
+    position: absolute;
+    top: 24px;
+    right: 28px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    padding: 16px 24px;
+    min-width: 140px;
+
+    border-radius: 16px;
+    background:
+            linear-gradient(180deg, rgba(70, 10, 20, 0.5) 0%, rgba(35, 3, 8, 0.65) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow:
+            0 20px 40px rgba(0, 0, 0, 0.24),
+            inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+    font-family: 'Orbitron', sans-serif;
+    backdrop-filter: blur(6px);
+    overflow: hidden;
+}
+
+.roomInfo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.07), transparent 30%);
+    pointer-events: none;
+}
+
+.roomNumber {
+    position: relative;
+    z-index: 1;
+    font-size: 12px;
+    letter-spacing: 0.8px;
+    color: rgba(255, 255, 255, 0.78);
+    text-transform: uppercase;
+}
+
+.roomID {
+    position: relative;
+    z-index: 1;
+    font-size: 30px;
+    color: #fff6f7;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-shadow:
+            0 3px 10px rgba(0, 0, 0, 0.28),
+            0 0 12px rgba(255, 255, 255, 0.06);
+}
+
+/* ========================== CHARACTER STAGE ========================== */
+
+.characterStage {
+    position: relative;
+    width: min(760px, 86vw);
+    height: 380px;
+    margin: 8px auto 0;
+    border-radius: 18px;
+    box-shadow:
+            0 26px 50px rgba(0, 0, 0, 0.28),
+            0 0 18px rgba(255, 255, 255, 0.06);
+}
+
+.stageBG {
+    position: absolute;
+    inset: 0;
+    background-image: url('../../assets/CharacterContainer.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.stageBG::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 24%),
+            radial-gradient(circle at center, rgba(255, 255, 255, 0.05), transparent 48%);
+    pointer-events: none;
+}
+
+/* neon corner accents */
+.corner {
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    border: 3px solid rgba(255, 255, 255, 0.92);
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.18));
+}
+
+.tr {
+    top: -14px;
+    right: -14px;
+    border-left: none;
+    border-bottom: none;
+}
+
+.bl {
+    bottom: -14px;
+    left: -14px;
+    border-right: none;
+    border-top: none;
+}
+
+.characters {
+    position: absolute;
+    bottom: 44px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: clamp(56px, 10vw, 120px);
+}
+
+/* ตัวละครแต่ละฝั่ง */
+.character {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 150px;
+    transition: transform 0.28s ease, filter 0.28s ease;
+}
+
+.character img {
+    width: 150px;
+    transition:
+            transform 0.3s ease,
+            filter 0.3s ease,
+            opacity 0.3s ease;
+    filter:
+            drop-shadow(0 0 16px rgba(0, 255, 255, 0.34))
+            drop-shadow(0 18px 24px rgba(0, 0, 0, 0.25));
+}
+
+.character:hover img {
+    transform: translateY(-4px) scale(1.03);
+}
+
+.disabled img {
+    filter: grayscale(100%) brightness(55%);
+    opacity: 0.58;
+}
+
+.disabled .playerName {
+    color: rgba(255, 255, 255, 0.45);
+    text-shadow: none;
+    opacity: 0.75;
+}
+
+/* ชื่อผู้เล่น */
+.playerName {
+    position: absolute;
+    top: -24px;
+    white-space: nowrap;
+
+    font-family: 'Press Start 2P', cursive;
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: #ffffff;
+    text-transform: uppercase;
+
+    text-shadow:
+            0 0 6px rgba(255, 255, 255, 0.95),
+            0 0 14px rgba(0, 255, 255, 0.5),
+            0 0 26px rgba(0, 255, 255, 0.28);
+
+    animation: playerGlow 1.7s infinite alternate;
+    transition: 0.3s ease;
+}
+
+@keyframes playerGlow {
+    from {
+        text-shadow:
+                0 0 4px rgba(255, 255, 255, 0.9),
+                0 0 10px rgba(0, 255, 255, 0.36);
+    }
+    to {
+        text-shadow:
+                0 0 8px rgba(255, 255, 255, 1),
+                0 0 18px rgba(0, 255, 255, 0.65),
+                0 0 30px rgba(0, 255, 255, 0.32);
+    }
+}
+
+/* ========================== LOWER PANELS ========================== */
+
+.BottomSection {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 42px;
+    margin-top: 30px;
+    padding: 0 24px;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+}
+
+.ConfigBox,
+.InfoBox {
+    position: relative;
+    width: min(420px, 42vw);
+    min-width: 320px;
+    height: 240px;
+    padding: 24px 26px;
+    box-sizing: border-box;
+    border-radius: 20px;
+
+    background:
+            linear-gradient(180deg, rgba(70, 10, 20, 0.52) 0%, rgba(35, 3, 8, 0.62) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow:
+            0 22px 44px rgba(0, 0, 0, 0.22),
+            inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    backdrop-filter: blur(6px);
+}
+
+.ConfigBox::before,
+.InfoBox::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.07), transparent 26%);
+    pointer-events: none;
+}
+
+.ConfigBox {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+}
+
+.ConfigBox::-webkit-scrollbar {
+    width: 8px;
+}
+
+.ConfigBox::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.ConfigBox::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.26);
+    border-radius: 999px;
+}
+
+.BoxTitle {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+
+    font-size: 24px;
+    font-family: 'Press Start 2P', cursive;
+    color: #fff7f8;
+    text-shadow:
+            0 3px 10px rgba(0, 0, 0, 0.25),
+            0 0 10px rgba(255, 255, 255, 0.06);
+}
+
+.TitleIcon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.12));
+}
+
+.ConfigWrapper {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: rgba(255, 241, 243, 0.96);
+    font-family: 'Orbitron', sans-serif;
+}
+
+.InfoBox {
+    position: relative;
+    width: min(420px, 42vw);
+    min-width: 320px;
+    height: 240px;
+    padding: 24px 26px;
+    box-sizing: border-box;
+    border-radius: 20px;
+
+    background:
+            linear-gradient(180deg, rgba(70, 10, 20, 0.52) 0%, rgba(35, 3, 8, 0.62) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow:
+            0 22px 44px rgba(0, 0, 0, 0.22),
+            inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    backdrop-filter: blur(6px);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 26px;
+}
+
+.infoRow {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    align-items: center;
+    column-gap: 18px;
+    width: 100%;
+}
+
+.infoIcon {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    justify-self: center;
+    flex-shrink: 0;
+}
+
+.infoValue {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff6f7;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.infoPlayerStatus {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    color: #fff6f7;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.infoPlayerStatus.waiting {
+    color: rgba(255, 245, 247, 0.9);
+}
+
+.infoPlayerStatus.ready {
+    color: #8dff5a;
+    text-shadow: 0 0 10px rgba(141, 255, 90, 0.18);
+}
+
+/* ========================== BUTTON DISABLED ========================== */
+
+.btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
+    box-shadow: none;
+    transform: none;
+}
+
+/* ========================== EXTRA LOBBY POLISH ========================== */
+
+/* optional row hover feeling ถ้า item ด้านในเป็น div/row */
+.ConfigWrapper > *,
+.InfoWrapper > * {
+    transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+.ConfigWrapper > *:hover,
+.InfoWrapper > *:hover {
+    transform: translateX(2px);
+}
+
+/* ========================== RESPONSIVE ========================== */
+
+@media (max-width: 1100px) {
+    .LobbyTitle {
+        font-size: 54px;
+    }
+
+    .characterStage {
+        height: 340px;
+    }
+
+    .character img {
+        width: 132px;
+    }
+}
+
+@media (max-width: 760px) {
+    .page {
+        padding-top: 88px;
+        gap: 22px;
+    }
+
+    .LobbyHeader {
+        gap: 16px;
+        padding: 0 18px;
+    }
+
+    .line {
+        max-width: 110px;
+    }
+
+    .LobbyTitle {
+        font-size: 34px;
+    }
+
+    .LobbySubTitle {
+        font-size: 11px;
+    }
+
+    .roomInfo {
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .roomInfo:hover {
+        transform: translateY(-2px) scale(1.03);
+        box-shadow:
+                0 24px 40px rgba(0,0,0,0.25),
+                0 0 16px rgba(255,255,255,0.12);
+    }
+
+    .roomInfo:active {
+        transform: scale(0.95);
+    }
+
+    .roomID.copied {
+        color: #8dff5a;
+        text-shadow:
+                0 0 10px rgba(141,255,90,0.6),
+                0 0 20px rgba(141,255,90,0.3);
+        letter-spacing: 2px;
+    }
+
+    .roomID {
+        font-size: 22px;
+    }
+
+    .characterStage {
+        width: 92vw;
+        height: 290px;
+    }
+
+    .characters {
+        bottom: 30px;
+        gap: 36px;
+    }
+
+    .character img {
+        width: 110px;
+    }
+
+    .playerName {
+        font-size: 12px;
+        top: -18px;
+    }
+
+    .BottomSection {
+        gap: 18px;
+        margin-top: 18px;
+        padding: 0 14px 20px;
+    }
+
+    .ConfigBox,
+    .InfoBox {
+        width: 100%;
+        min-width: unset;
+        height: 220px;
+        padding: 20px;
+    }
+
+    .BoxTitle {
+        font-size: 18px;
+    }
+}
