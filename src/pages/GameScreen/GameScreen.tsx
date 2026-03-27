@@ -54,19 +54,6 @@ type GameRequest = {
     userId: string;
 };
 
-type SpawnMinionRequest = {
-    roomId: string;
-    row: number;
-    col: number;
-    type: string;
-};
-
-type BuyHexRequest = {
-    roomId: string;
-    row: number;
-    col: number;
-};
-
 const BOARD_ROWS = 8;
 const BOARD_COLS = 8;
 
@@ -249,7 +236,6 @@ export default function GameScreen(): React.JSX.Element {
     const currentSpawnsLeft = currentPlayer === 1 ? player1SpawnsLeft : player2SpawnsLeft;
     const hasSpawnsLeft = currentSpawnsLeft > 0;
     const isAutoMode = gameState?.mode === "AUTO";
-    const isSolitaireMode = gameState?.mode === "SOLITAIRE";
 
     const isHost = gameState?.hostId === currentUserId;
     const myPlayer = isHost ? 1 : 2;
